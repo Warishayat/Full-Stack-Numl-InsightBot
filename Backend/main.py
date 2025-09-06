@@ -1,5 +1,14 @@
-from fastapi import FastAPI
+from fastapi import FastAPI,Depends
 from fastapi.exceptions import HTTPException
+from Schemas import UserModels
+from Config.database import engine,get_db
+from sqlalchemy.orm import Session
+
+
+
+
+
+
 
 app = FastAPI(
     title = "NUML Insigtbot",
@@ -14,6 +23,7 @@ app = FastAPI(
     version = "1.1.0"
 )
 
+UserModels.Base.metadata.create_all(bind=engine)
 
 @app.get("/")
 def root():
@@ -21,3 +31,11 @@ def root():
         "success" : True,
         "message" : "You are looking for pong"
     }
+
+@app.get("/testdatabase")
+async def testdatabase(db:Session=Depends(get_db)):
+    return{
+        "Success" : True,
+        "message" : "Successfully....Database is up"
+    }
+    
