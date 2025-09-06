@@ -3,10 +3,7 @@ from fastapi.exceptions import HTTPException
 from Schemas import UserModels
 from Config.database import engine,get_db
 from sqlalchemy.orm import Session
-
-
-
-
+from Router.Authentication_route import routes
 
 
 
@@ -39,3 +36,6 @@ async def testdatabase(db:Session=Depends(get_db)):
         "message" : "Successfully....Database is up"
     }
     
+
+#Signup
+app.include_router(routes)
