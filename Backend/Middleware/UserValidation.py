@@ -9,3 +9,4 @@ class SignupValidation(BaseModel):
 class LoginValidation(BaseModel):
     email:EmailStr
     password : str
+

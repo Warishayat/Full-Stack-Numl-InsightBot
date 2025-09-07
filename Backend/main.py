@@ -4,6 +4,8 @@ from Schemas import UserModels
 from Config.database import engine,get_db
 from sqlalchemy.orm import Session
 from Router.Authentication_route import routes
+from Utils import Oauth2
+from Utils.Response_model import TokenData
 
 
 
@@ -36,6 +38,13 @@ async def testdatabase(db:Session=Depends(get_db)):
         "message" : "Successfully....Database is up"
     }
     
-
+@app.get("/dashboard")
+def get_dashboard(current_user: TokenData = Depends(Oauth2.get_current_user)):
+    return {
+        "message": "Welcome to your dashboard!",
+        "current_user": {
+            "id": current_user.id,
+        }
+    }
 #Signup
 app.include_router(routes)

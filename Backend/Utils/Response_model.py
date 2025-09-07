@@ -8,3 +8,8 @@ class SignupResponse(BaseModel):
     created_at: datetime.datetime
     class Config:
         form_attribute = True    
+
+from typing import Optional
+class TokenData(BaseModel):
+    id : Optional[int] = None
+    
